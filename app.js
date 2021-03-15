@@ -49,11 +49,15 @@ app.use((req, res, next) => {
 const productRoutes = require('./api/routes/products');
 //import orders route
 const orderRoutes = require('./api/routes/orders');
+//import users route
+const userRoutes = require('./api/routes/users');
 
 //call prouct routes file
 app.use('/products', productRoutes);
 //call order route file
 app.use('/orders', orderRoutes);
+//call user route file
+app.use('/users', userRoutes);
 
 
 //=======Error Handling===================//
