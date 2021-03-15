@@ -23,6 +23,8 @@ const app = express();
 //use morgan
 app.use(morgan('dev'));
 
+app.use('/uploads', express.static('uploads'));
+
 //use body-parser
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
