@@ -12,8 +12,11 @@ const Order = require('../models/order');
 //import Product model
 const Product = require('../models/product');
 
+//import check-auth middleware
+const checkAuth = require('../middleware/check-auth');
+
 //create GET method/route to fetch/retreive data
-router.get('/', (req, res, next) => {
+router.get('/', checkAuth, (req, res, next) => {
     Order.find()
          .select('product quantity _id')
          .populate('product', 'name')
@@ -42,7 +45,7 @@ router.get('/', (req, res, next) => {
 });
 
 //create POST method/route to create/save data
-router.post('/', (req, res, next) => {
+router.post('/', checkAuth, (req, res, next) => {
 
     Product.findById(req.body.productId)
            .then(product => {
@@ -84,7 +87,7 @@ router.post('/', (req, res, next) => {
 
 
 //create GET method/route for fetch/retreive specific data
-router.get('/:orderId', (req, res, next) => {
+router.get('/:orderId', checkAuth, (req, res, next) => {
     Order.findById(req.params.orderId)
          .select('quantity product _id')
          .populate('product')
@@ -112,7 +115,7 @@ router.get('/:orderId', (req, res, next) => {
 
 
 //create DELETE method/route for delete specific data
-router.delete('/:orderId', (req, res, next) => {
+router.delete('/:orderId', checkAuth, (req, res, next) => {
     Order.remove({ _id: req.params.orderId})
          .exec()
          .then(result => {
